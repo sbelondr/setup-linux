@@ -1,5 +1,5 @@
 # My VIM
 
-autoload et bundle a mettre dans le dossier .vim qui est dans ~
+Modifier le nom du dossier "vim" par ".vim". Puis mettre le dossier dans son home
 
-vimrc a mettre dans ~ en le renommant .vimrc
+"vimrc" a mettre aussi dans le home en le renommant ".vimrc"
