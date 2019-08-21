@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/sbelondr/42/minishell/libft/headers'
-let g:netrw_dirhist_2='/Users/sbelondr/42/minishell/libft'
-let g:netrw_dirhist_3='/Users/sbelondr/42/minishell/src'
-let g:netrw_dirhist_4='/Users/sbelondr/42/ft_select/libft/src/minishell'
-let g:netrw_dirhist_5='/Users/sbelondr/42/ft_select/libft/src'
-let g:netrw_dirhist_6='/Users/sbelondr/42/ft_select/libft/src/ft_ls'
-let g:netrw_dirhist_7='/Users/sbelondr/42/my21sh'
