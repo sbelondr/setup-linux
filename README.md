@@ -1,5 +1,19 @@
-# My VIM
+# Vim
 
-Modifier le nom du dossier "vim" par ".vim". Puis mettre le dossier dans son home
+Configuration de mon vim
 
-"vimrc" a mettre aussi dans le home en le renommant ".vimrc"
+## Installer
+
+- [Pathogen](https://github.com/tpope/vim-pathogen)
+
+- [Gruvbox](https://github.com/morhetz/gruvbox)
+
+- [Ariline](https://github.com/vim-airline/vim-airline)
+
+- [Syntastic](https://github.com/vim-syntastic/syntastic)
+
+- [NerdTree](https://github.com/scrooloose/nerdtree)
+
+- [Norminette](https://github.com/Gegel85/norminette) *(non testé)*
+
+- Puis déplacer vimrc vers ~/.vimrc
