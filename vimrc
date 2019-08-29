@@ -56,7 +56,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_c_include_dirs = ['libft/includes', 'includes']
-let g:syntastic_c_compiler_options = "-Wall -Wextra"
+let g:syntastic_c_compiler_options = "-Wall -Wextra -Werror"
 let g:syntastic_c_check_header = 1
 let g:syntastic_c_remove_include_errors = 1
 let g:syntastic_always_populate_loc_list = 1
@@ -69,16 +69,37 @@ let g:syntastic_error_symbol = "✗"
 noremap <C-g> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+function GetNormi()
+	let file_name=expand('%:p')
+	return system("norminette " . file_name)
+endfunction
+
 "	Norminette
 function Normi()
-	let file_name=expand('%:p')
-	execute ":R norminette " . file_name
+	set statusline=
+	echo GetNormi()
+"	execute \":R norminette \" . file_name
 endfunction
 
 noremap <F5> :call Normi()<CR>
-command! -nargs=* -complete=shellcmd R | set splitbelow | new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
+"command! -nargs=* -complete=shellcmd R | set splitbelow | new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
+
+let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
+if isdirectory(s:clang_library_path)
+	    let g:clang_library_path=s:clang_library_path
+endif
 
 
+" edit bind window
+nnoremap <F2> :vertical resize +1<CR>
+nnoremap <F3> :vertical resize -1<CR>
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+nnoremap <C-M> :make<CR>
 
 "set termguicolors
 "set background=dark
