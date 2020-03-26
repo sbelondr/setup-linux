@@ -1,8 +1,8 @@
 # Vim
 
-Configuration de mon vim
+Configuration of my vim
 
-## Installer
+## Dependency
 
 - [Pathogen](https://github.com/tpope/vim-pathogen)
 
@@ -16,23 +16,33 @@ Configuration de mon vim
 
 - [Clang-complete](https://github.com/xavierd/clang_complete)
 
-- [Norminette](https://github.com/Gegel85/norminette) *(non testé)*
+- [Norminette](https://github.com/Gegel85/norminette) *(untested and optional)*
 
-- Installer ctags pour pouvoir naviguer entre les fonctions (configurer pour le C)
+- Install ctags to navigate between function (only for C and optional)
 
-- Puis déplacer vimrc vers ~/.vimrc
+- copy vimrc to ~/.vimrc
 
-## Raccourcis
+## 42 header
 
-| Touches  | Actions
+This header is automatically displayed for C and C++ file languages or use the keybinding.
+
+Add `export USER_42=<user>` in your .bashrc or .zshrc file then `source ~/<your_file>`.
+
+`mkdir -p config_perso` and copy `header.txt` in `~/.vim/config_perso/header_noremap.txt`
+
+## Keybinding
+
+**Remember to deactivate the shortcut F1 on the terminal if assigned**
+
+| Key      | Action
 |----------|--------------------------------------------|
-| `F2`     | Augmenter la taille de la fenêtre actuelle.|
-| `F3`     | Diminuer la taille de la fenêtre actuelle. |
-| `F5`     | Lancer la norminette.                      |
-| `F6`     | Visualiser les caractères invisibles.      |
-| `Ctrl-G` | Afficher le répertoire.                    |
-| `Ctrl-J` | Aller à la fenêtre du bas.                 |
-| `Ctrl-K` | Aller à la fenêtre du haut.                |
-| `Ctrl-L` | Aller à la fenêtre de droite.              |
-| `Ctrl-H` | Aller à la fenêtre de gauche.              |
-| `Ctrl-M` | Compiler le Makefile.                      |
+| `F1`     | Increase vertical size.                    |
+| `F2`     | Decrease vertical size.                    |
+| `F3`     | Increase horizontal size.                  |
+| `F4`     | Decrease horizontal size.                  |
+| `F5`     | Display directory.                         |
+| `F6`     | Visualize invisible characters.            |
+| `F7`     | Call norminette.                           |
+| `F8`     | Include header file.                       |
+| `cl`     | Comment line.                              |
+| `ucl`    | Decomment line.                            |
