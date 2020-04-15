@@ -4,7 +4,8 @@ Configuration of my vim
 
 ## Install
 
-Copy vimrc to ~/.vimrc and install all depencies.
+Execute `install-vimrc.sh` or copy vimrc to ~/.vimrc and install all depencies.
+
 Then set up your env to display 42 header if you want.
 
 ## Dependency
