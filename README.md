@@ -2,6 +2,11 @@
 
 Configuration of my vim
 
+## Install
+
+Copy vimrc to ~/.vimrc and install all depencies.
+Then set up your env to display 42 header if you want.
+
 ## Dependency
 
 - [Pathogen](https://github.com/tpope/vim-pathogen)
@@ -20,8 +25,6 @@ Configuration of my vim
 
 - Install ctags to navigate between function (only for C and optional)
 
-- copy vimrc to ~/.vimrc
-
 ## 42 header
 
 This header is automatically displayed for C and C++ file languages or use the keybinding.
@@ -34,15 +37,34 @@ Add `export USER_42=<user>` in your .bashrc or .zshrc file then `source ~/<your_
 
 **Remember to deactivate the shortcut F1 on the terminal if assigned**
 
+`C: ctrl`
+`S: shift`
+
 | Key      | Action
 |----------|--------------------------------------------|
 | `F1`     | Increase vertical size.                    |
 | `F2`     | Decrease vertical size.                    |
 | `F3`     | Increase horizontal size.                  |
 | `F4`     | Decrease horizontal size.                  |
-| `F5`     | Display directory.                         |
-| `F6`     | Visualize invisible characters.            |
+| `F5`     | Display file tree.                         |
+| `S-F5`   | Visualize invisible characters.            |
+| `C-F5`   | Include 42 header file.                    |
+| `F6`     | Line number: mode relative.                |
+| `S-F6`   | Line number: mode no relative.             |
 | `F7`     | Call norminette.                           |
-| `F8`     | Include header file.                       |
+| `S-F8`   | File display in hexa mode.                 |
+| `F9`     | Add new tab and display file tree.         |
+| `C-F9`   | Add new tab.                               |
+| `F10`    | Switch to tab on the right.                |
+| `C-F10`  | Switch to tab on the left.                 |
 | `cl`     | Comment line.                              |
 | `ucl`    | Decomment line.                            |
+
+
+# Zshrc
+
+Copy `zshrc` file at the end `~/.zshrc`.
+
+# Terminator
+
+Copy `terminator_config` in `~/.config/terminator/config`.

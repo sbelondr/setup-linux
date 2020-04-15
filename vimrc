@@ -68,7 +68,7 @@ endfunction
 
 " Create header 42
 function Headerfile()
-	let name=expand('%')
+	let name=expand('%:p')
 	let lnum=len(name)
 	let finalWhite = 82 - lnum - 6 - 25
 	let finalW = ""
@@ -84,6 +84,11 @@ function Headerfile()
 	execute '%s/<user>/' . $USER_42 . '/g'
 	exe "1," . 10 . "g/Updated:.*/s/Updated:.*/Updated: " .strftime("%Y-%m-%d %H:%M:%S") ." by " . $USER_42 . "         ###   ########.fr       \*\\/ "
 	:$
+endfunction
+
+function NewTab()
+	:tabnew
+	:Explore
 endfunction
 
 
@@ -137,21 +142,33 @@ nnoremap <F2> :vertical resize +1<CR>
 nnoremap <F3> :resize +1<CR>
 nnoremap <F4> :resize -1<CR>
 
+
 "	Nerdtree
 noremap <F5> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "	see invisible characters
 set		listchars=eol:$,tab:→\ ,trail:.,space:·,extends:>,precedes:<,nbsp:_
-noremap <F6> :set list!<CR>
-inoremap <F6> <C-o>:set list!<CR>
-cnoremap <F6> <C-c>:set list!<CR>
+noremap <S-F5> :set list!<CR>
+inoremap <S-F5> <C-o>:set list!<CR>
+cnoremap <S-F5> <C-c>:set list!<CR>
+
+" call function to create 42 header
+nnoremap <C-F5> :call Headerfile()<CR>
+
+nnoremap <F6> :set relativenumber<CR>
+nnoremap <S-F6> :set norelativenumber<CR>
 
 " call norminette
 noremap <F7> :call Normi()<CR>
 
-" call function to create 42 header
-nnoremap <F8> :call Headerfile()<CR>
+noremap <S-F8> :%!xxd<CR>
+
+
+nnoremap <F9> :call NewTab()<CR>
+nnoremap <C-F9> :tabnew<CR>
+nnoremap <F10> gt<CR>
+nnoremap <C-F10> gT<CR>
 
 "	Comment line
 map cl 0i//<Esc>
@@ -173,7 +190,17 @@ map ucl 02x
 
 " config 42 header when is file is c and cpp and call update when save
 autocmd bufnewfile *.cpp :call Headerfile()
-autocmd bufnewfile *.c :call Headerfile()
 autocmd Bufwritepre,filewritepre *.cpp execute "normal ma"
 autocmd Bufwritepre,filewritepre *.cpp exe "1," . 10 . "g/Updated:.*/s/Updated:.*/Updated: " .strftime("%Y-%m-%d %H:%M:%S") ." by " . $USER_42 . "         ###   ########.fr       \*\\/ "
 autocmd bufwritepost,filewritepost *.cpp execute "normal `a"
+
+autocmd bufnewfile *.c :call Headerfile()
+autocmd Bufwritepre,filewritepre *.c execute "normal ma"
+autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Updated:.*/s/Updated:.*/Updated: " .strftime("%Y-%m-%d %H:%M:%S") ." by " . $USER_42 . "         ###   ########.fr       \*\\/ "
+autocmd bufwritepost,filewritepost *.c execute "normal `a"
+
+autocmd bufnewfile *.h :call Headerfile()
+autocmd Bufwritepre,filewritepre *.h execute "normal ma"
+autocmd Bufwritepre,filewritepre *.h exe "1," . 10 . "g/Updated:.*/s/Updated:.*/Updated: " .strftime("%Y-%m-%d %H:%M:%S") ." by " . $USER_42 . "         ###   ########.fr       \*\\/ "
+autocmd bufwritepost,filewritepost *.h execute "normal `a"
+
