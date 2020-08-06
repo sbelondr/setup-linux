@@ -43,21 +43,20 @@ Add `export USER_42=<user>` in your .bashrc or .zshrc file then `source ~/<your_
 
 | Key      | Action
 |----------|--------------------------------------------|
-| `F1`     | Increase vertical size.                    |
-| `F2`     | Decrease vertical size.                    |
-| `F3`     | Increase horizontal size.                  |
-| `F4`     | Decrease horizontal size.                  |
-| `F5`     | Display file tree.                         |
+| `F2`     | Increase vertical size.                    |
+| `F3`     | Decrease vertical size.                    |
+| `F4`     | Increase horizontal size.                  |
+| `F5`     | Decrease horizontal size.                  |
 | `S-F5`   | Visualize invisible characters.            |
-| `C-F5`   | Include 42 header file.                    |
 | `F6`     | Line number: mode relative.                |
 | `S-F6`   | Line number: mode no relative.             |
 | `F7`     | Call norminette.                           |
 | `S-F8`   | File display in hexa mode.                 |
 | `F9`     | Add new tab and display file tree.         |
-| `C-F9`   | Add new tab.                               |
+| `S-F9`   | Add new tab.                               |
 | `F10`    | Switch to tab on the right.                |
-| `C-F10`  | Switch to tab on the left.                 |
+| `S-F10`  | Switch to tab on the left.                 |
+| `F12`    | Display file tree.                         |
 | `cl`     | Comment line.                              |
 | `ucl`    | Decomment line.                            |
 
