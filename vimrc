@@ -24,9 +24,9 @@ set		colorcolumn=80
 
 "	tab settings
 "set expandtab
-set		tabstop=2
-set		softtabstop=2
-set		shiftwidth=2
+"set		tabstop=2
+"set		softtabstop=2
+"set		shiftwidth=2
 set		autoindent
 set		smartindent
 set		cindent
@@ -127,24 +127,24 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 " For mac
-"let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
-"if isdirectory(s:clang_library_path)
-"	let g:clang_library_path=s:clang_library_path
-"endif
+let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
+if isdirectory(s:clang_library_path)
+	let g:clang_library_path=s:clang_library_path
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 """"""""""""""""""""""""""""""""" key binding """"""""""""""""""""""""""""""""" 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 
 " resize window
-nnoremap <F1> :vertical resize -1<CR>
-nnoremap <F2> :vertical resize +1<CR>
-nnoremap <F3> :resize +1<CR>
-nnoremap <F4> :resize -1<CR>
+nnoremap <F2> :vertical resize -1<CR>
+nnoremap <F3> :vertical resize +1<CR>
+nnoremap <F4> :resize +1<CR>
+nnoremap <F5> :resize -1<CR>
 
 
 "	Nerdtree
-noremap <F5> :NERDTreeToggle<CR>
+noremap <F12> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "	see invisible characters
@@ -154,7 +154,7 @@ inoremap <S-F5> <C-o>:set list!<CR>
 cnoremap <S-F5> <C-c>:set list!<CR>
 
 " call function to create 42 header
-nnoremap <C-F5> :call Headerfile()<CR>
+"nnoremap <C-F5> :call Headerfile()<CR>
 
 nnoremap <F6> :set relativenumber<CR>
 nnoremap <S-F6> :set norelativenumber<CR>
@@ -166,9 +166,9 @@ noremap <S-F8> :%!xxd<CR>
 
 
 nnoremap <F9> :call NewTab()<CR>
-nnoremap <C-F9> :tabnew<CR>
+nnoremap <S-F9> :tabnew<CR>
 nnoremap <F10> gt<CR>
-nnoremap <C-F10> gT<CR>
+nnoremap <S-F10> gT<CR>
 
 "	Comment line
 map cl 0i//<Esc>
@@ -183,24 +183,3 @@ map ucl 02x
 
 " Ctrl-m for make
 " nnoremap <C-M> :make<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-"""""""""""""""""""""""""""""""""""" header """"""""""""""""""""""""""""""""""" 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
-
-" config 42 header when is file is c and cpp and call update when save
-autocmd bufnewfile *.cpp :call Headerfile()
-autocmd Bufwritepre,filewritepre *.cpp execute "normal ma"
-autocmd Bufwritepre,filewritepre *.cpp exe "1," . 10 . "g/Updated:.*/s/Updated:.*/Updated: " .strftime("%Y-%m-%d %H:%M:%S") ." by " . $USER_42 . "         ###   ########.fr       \*\\/ "
-autocmd bufwritepost,filewritepost *.cpp execute "normal `a"
-
-autocmd bufnewfile *.c :call Headerfile()
-autocmd Bufwritepre,filewritepre *.c execute "normal ma"
-autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Updated:.*/s/Updated:.*/Updated: " .strftime("%Y-%m-%d %H:%M:%S") ." by " . $USER_42 . "         ###   ########.fr       \*\\/ "
-autocmd bufwritepost,filewritepost *.c execute "normal `a"
-
-autocmd bufnewfile *.h :call Headerfile()
-autocmd Bufwritepre,filewritepre *.h execute "normal ma"
-autocmd Bufwritepre,filewritepre *.h exe "1," . 10 . "g/Updated:.*/s/Updated:.*/Updated: " .strftime("%Y-%m-%d %H:%M:%S") ." by " . $USER_42 . "         ###   ########.fr       \*\\/ "
-autocmd bufwritepost,filewritepost *.h execute "normal `a"
-
