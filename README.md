@@ -1,14 +1,37 @@
-# Vim
+# Setup a new linux installation
+
+Packages:
+
+- Text editor: vim and emacs
+- Terminal: terminator, zsh and oh-my-zsh (with my config)
+- git (config user, mail and create ssh-keygen)
+- Debug: valgrind and lldb
+- docker and docker-compose
+- virtualbox
+- pyenv with python 3.8
+- nvm with node 14
+- To take notes: joplin
+- htop
+
+## Terminator
+
+- borderless
+- F1 disabled
+- remove titlebar
+- background transparent
+
+## Zsh
+
+- use md and the markdown file to view it (`md <file.md>`)
+- replace `vi` by `vim`
+- replace `emacs` by `emacs -nw`
+- replace default editor by `vim`
+
+## Vim
 
 Configuration of my vim
 
-## Install
-
-Execute `install-vimrc.sh` or copy vimrc to ~/.vimrc and install all depencies.
-
-Then set up your env to display 42 header if you want.
-
-## Dependency
+### Dependency
 
 - [Pathogen](https://github.com/tpope/vim-pathogen)
 
@@ -22,19 +45,13 @@ Then set up your env to display 42 header if you want.
 
 - [Clang-complete](https://github.com/xavierd/clang_complete)
 
+- [42 header](https://github.com/42Paris/42header.git)
+
 - [Norminette](https://github.com/Gegel85/norminette) *(untested and optional)*
 
 - Install ctags to navigate between function (only for C and optional)
 
-## 42 header
-
-This header is automatically displayed for C and C++ file languages or use the keybinding.
-
-Add `export USER_42=<user>` in your .bashrc or .zshrc file then `source ~/<your_file>`.
-
-`mkdir -p config_perso` and copy `header.txt` in `~/.vim/config_perso/header_noremap.txt`
-
-## Keybinding
+### Keybinding
 
 **Remember to deactivate the shortcut F1 on the terminal if assigned**
 
@@ -43,6 +60,7 @@ Add `export USER_42=<user>` in your .bashrc or .zshrc file then `source ~/<your_
 
 | Key      | Action
 |----------|--------------------------------------------|
+| `F1`     | 42 header.                                 |
 | `F2`     | Increase vertical size.                    |
 | `F3`     | Decrease vertical size.                    |
 | `F4`     | Increase horizontal size.                  |
@@ -59,12 +77,3 @@ Add `export USER_42=<user>` in your .bashrc or .zshrc file then `source ~/<your_
 | `F12`    | Display file tree.                         |
 | `cl`     | Comment line.                              |
 | `ucl`    | Decomment line.                            |
-
-
-# Zshrc
-
-Copy `zshrc` file at the end `~/.zshrc`.
-
-# Terminator
-
-Copy `terminator_config` in `~/.config/terminator/config`.

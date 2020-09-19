@@ -6,7 +6,7 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/04 16:14:14 by sbelondr          #+#    #+#              #
-#    Updated: 2020/09/04 17:16:06 by askhalog         ###   ########.fr        #
+#    Updated: 2020/09/19 13:57:34 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,20 @@
 PCK_INSTALL="apt-get install"
 PCK_UPDATE="apt-get update"
 PCK_UPGRADE="apt-get upgrade"
-# arch -> base-devel
 PCK_DEV="build-essential"
+
+if [ -x "$(command -v pacman)" ]; then
+	echo "Detect pacman for system package manager"
+	PCK_INSTALL="pacman -S"
+	PCK_UPDATE="pacman -Sy"
+	PCK_UPGRADE="pacman -Su"
+	PCK_DEV="base-devel"
+elif [ -x "$(command -v apt-get)" ]; then
+	echo "Detect apt-get for system package manager"
+else
+	echo "This script is not tested with your distribution. Please adapt this script and comment this line and the next"
+	exit
+fi
 
 # redirect STD
 R_STDOUT="/dev/null"
@@ -26,11 +38,18 @@ R_STDOUT="/dev/null"
 V_PYTHON="3.8.5"
 V_NODE="14"
 
+# silent mode (1 or 0)
+SILENT_MODE=0
+
 # default file to save conf
 RC=~/.zshrc
 
 confirm() {
-	read -r -p "$1? [y/N] " response
+	if [ 1 -eq "$SILENT_MODE" ]; then
+		response='y'
+	else
+		read -r -p "$1? [y/N] " response
+	fi
 	case "$response" in
 		[yY][eE][sS]|[yY]) 
 			true
@@ -157,12 +176,12 @@ conf_git() {
 	echo "Edit git"
 
 	read -p "Enter your git name: " git_name
-	read -p "Enter your git mail: " git_mail
+	read -p "Enter your git email: " git_mail
 	git config --global user.name "$git_name"
 	git config --global user.email "$git_mail"
+	ssh-keygen
 }
 
-echo "Script only work for Debian/Ubuntu"
 confirm "Do you want install base package" && install_base_package
 confirm "Add terminator config" && conf_terminator
 confirm "Do you want install insomnia" && install_insomnia
