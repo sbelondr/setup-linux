@@ -6,7 +6,7 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/04 16:14:14 by sbelondr          #+#    #+#              #
-#    Updated: 2020/09/19 13:57:34 by sbelondr         ###   ########.fr        #
+#    Updated: 2020/09/19 14:34:10 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,6 +108,7 @@ install_zsh() {
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions > $R_STDOUT
 	echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> $RC
 	cat config/zshrc >> $RC
+	echo "export CDPATH=\".:$HOME/dev\"" >> $RC
 
 }
 

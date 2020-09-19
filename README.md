@@ -26,6 +26,7 @@ Packages:
 - replace `vi` by `vim`
 - replace `emacs` by `emacs -nw`
 - replace default editor by `vim`
+- edit CDPATH to include ~/dev (example: you have a folder called foo in dev and if you are in tmp and you run `cd foo`, you go directly to this folder)
 
 ## Vim
 

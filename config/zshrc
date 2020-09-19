@@ -14,6 +14,5 @@ alias emacs="emacs -nw"
 
 # env
 
-export USER_42="sbelondr"
 export VISUAL=vim
 export EDITOR="$VISUAL"
