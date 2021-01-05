@@ -6,7 +6,7 @@
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/04 16:14:14 by sbelondr          #+#    #+#              #
-#    Updated: 2020/09/19 14:34:10 by sbelondr         ###   ########.fr        #
+#    Updated: 2020/12/23 09:35:57 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ else
 	exit
 fi
 
-# redirect STD
+# redirect STD (actually not work)
 R_STDOUT="/dev/null"
 
 # version
@@ -62,18 +62,19 @@ confirm() {
 
 install_base_package() {
 	echo "Update..."
-	sudo $PCK_UPDATE > $R_STDOUT
+	sudo $PCK_UPDATE # > $R_STDOUT
 	echo "Upgrade..."
-	sudo $PCK_UPGRADE -y > $R_STDOUT
+	sudo $PCK_UPGRADE -y # > $R_STDOUT
 
 	echo "Create ~/dev directory"
 	mkdir -pv ~/dev
 
 	echo "Install base package..."
-	sudo $PCK_INSTALL -y $PCK_DEV > $R_STDOUT
-	sudo $PCK_INSTALL -y vim emacs pandoc lynx terminator virtualbox htop > $R_STDOUT
-	sudo $PCK_INSTALL -y curl wget git valgrind lldb > $R_STDOUT
-	sudo $PCK_INSTALL -y joplin keepass2 docker docker-compose openssl > $R_STDOUT
+	sudo $PCK_INSTALL -y $PCK_DEV # > $R_STDOUT
+	sudo $PCK_INSTALL -y vim emacs pandoc lynx terminator virtualbox htop # > $R_STDOUT
+	sudo $PCK_INSTALL -y curl wget git valgrind lldb # > $R_STDOUT
+	sudo $PCK_INSTALL -y joplin keepass2 docker docker-compose openssl # > $R_STDOUT
+	sudo $PCK_INSTALL -y python3-dev python3-pip python3-setuptools # > $R_STDOUT
 }
 
 conf_terminator() {
@@ -86,41 +87,37 @@ install_insomnia() {
 	echo "Install insomnia..."
 	# Add to sources
 	echo "deb https://dl.bintray.com/getinsomnia/Insomnia /" \
-		| sudo tee -a /etc/apt/sources.list.d/insomnia.list > $R_STDOUT
+		| sudo tee -a /etc/apt/sources.list.d/insomnia.list # > $R_STDOUT
 
 	# Add public key used to verify code signature
 	wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc \
-		| sudo apt-key add - > $R_STDOUT
+		| sudo apt-key add - # > $R_STDOUT
 
 	# Refresh repository sources and install Insomnia
-	sudo $PCK_UPDATE > $R_STDOUT
-	sudo $PCK_INSTALL insomnia -y > $R_STDOUT
+	sudo $PCK_UPDATE # > $R_STDOUT
+	sudo $PCK_INSTALL insomnia -y # > $R_STDOUT
 }
 
 install_zsh() {
 	echo "Install zsh and oh-my-zsh"
-	sudo $PCK_INSTALL zsh -y > $R_STDOUT
+	sudo $PCK_INSTALL zsh -y # > $R_STDOUT
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-	#sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-
-
+	echo "Add new plugin"
+	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions # > $R_STDOUT
+	sudo pip3 install thefuck
 	echo "Add file config in zshrc"
-	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions > $R_STDOUT
-	echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> $RC
 	cat config/zshrc >> $RC
-	echo "export CDPATH=\".:$HOME/dev\"" >> $RC
-
 }
 
 install_nvm_pack() {
 	echo "Install yarn..."
-	npm i -g yarn > $R_STDOUT
+	npm i -g yarn # > $R_STDOUT
 	echo "Install lite-server..."
-	npm i -g lite-server > $R_STDOUT
+	npm i -g lite-server # > $R_STDOUT
 	echo "Install @vue/cli..."
-	npm i -g @vue/cli > $R_STDOUT
+	npm i -g @vue/cli # > $R_STDOUT
 	echo "Install @angular/cli..."
-	npm i -g @angular/cli > $R_STDOUT
+	npm i -g @angular/cli # > $R_STDOUT
 }
 
 install_nvm() {
@@ -130,7 +127,7 @@ install_nvm() {
 	read -e -p "Enter link nvm install: " -i "https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh" nvm_link
 
 	echo "Install nvm..."
-	wget -qO- $nvm_link | bash > $R_STDOUT
+	wget -qO- $nvm_link | bash # > $R_STDOUT
 
 	# update env script
 	NVM_DIR="$HOME/.nvm"
@@ -144,8 +141,8 @@ install_nvm() {
 
 	# install one node version
 	echo "Install node version $V_NODE..."
-	nvm install $V_NODE > $R_STDOUT
-	nvm use global $V_NODE > $R_STDOUT
+	nvm install $V_NODE # > $R_STDOUT
+	nvm use global $V_NODE # > $R_STDOUT
 	# install other package
 	confirm "Install yarn, lite-server, vue and angular package" && install_nvm_pack
 }
@@ -155,9 +152,9 @@ install_pyenv() {
 
 	sudo $PCK_INSTALL -y libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
 		libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev \
-		libffi-dev liblzma-dev python3-openssl > $R_STDOUT
+		libffi-dev liblzma-dev python3-openssl # > $R_STDOUT
 
-	curl https://pyenv.run | bash > $R_STDOUT
+	curl https://pyenv.run | bash # > $R_STDOUT
 
 	PYENV_ROOT="$HOME/.pyenv"
 	PATH="$PYENV_ROOT/bin:$PATH"
@@ -166,11 +163,11 @@ install_pyenv() {
 	echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> $RC
 
 	echo "Install python 3.8.5"
-	pyenv install $V_PYTHON > $R_STDOUT
-	pyenv global $V_PYTHON > $R_STDOUT
+	pyenv install $V_PYTHON # > $R_STDOUT
+	pyenv global $V_PYTHON # > $R_STDOUT
 
 	echo "Install jupyterlab..."
-	pip install jupyterlab > $R_STDOUT
+	pip install jupyterlab # > $R_STDOUT
 }
 
 conf_git() {
