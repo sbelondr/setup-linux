@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    zshrc                                              :+:      :+:    :+:    #
+#    zshrc-2                                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: sbelondr <sbelondr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/23 09:30:29 by sbelondr          #+#    #+#              #
-#    Updated: 2021/01/06 00:12:18 by sbelondr         ###   ########.fr        #
+#    Updated: 2021/03/02 07:45:02 by sbelondr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ source $ZSH/oh-my-zsh.sh
 
 # clean
 unalias -m '*'
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+#export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 # plugin
 ## auto suggestion
@@ -49,10 +49,17 @@ sha() {
 	diff <(sha256sum $1 | sed -r "s/ {2}$1//g") <(echo $2)
 }
 
+killport() {
+	kill -9 $(lsof -t -i:$1)
+}
+
 # env
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export CDPATH=".:$HOME/dev"
+export USER=sbelondr
+export MAIL=sbelondr@student.42.fr
+#export PATH=/home/samuel/.local/bin/:$PATH
 
 # alias
 alias vi="vim"
@@ -64,7 +71,8 @@ alias diff="diff --color"
 alias gst="git status"
 alias gl="git ls-files"
 alias gb="git branch"
-alias open="xdg-open"
+#alias open="xdg-open"
 alias make="make -s"
 alias copy="xclip -sel clip"
-
+alias python="python3.8"
+alias pip="pip3"
