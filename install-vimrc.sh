@@ -28,8 +28,10 @@ cp stdheader.vim ~/.vim/plugin
 cd
 rm -rf /tmp/header
 
-read -p "Enter your 42 name: " header_name
-read -p "Enter your 42 email: " header_mail
+if [ -z $1 ]; then
+	read -p "Enter your 42 name: " header_name
+	read -p "Enter your 42 email: " header_mail
 
-echo "export USER=$header_name" >> ~/.zshrc
-echo "export MAIL=$header_mail" >> ~/.zshrc
+	echo "export USER=$header_name" >> ~/.zshrc
+	echo "export MAIL=$header_mail" >> ~/.zshrc
+fi
