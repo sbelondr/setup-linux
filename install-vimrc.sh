@@ -3,7 +3,7 @@
 echo "Install and conf vim"
 
 echo "copy vimrc in your home..."
-cp config/vimrc ~/.vimrc
+cp ./config/vimrc ~/.vimrc
 
 echo "Install pathogen..."
 mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
