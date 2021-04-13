@@ -23,9 +23,9 @@ set		ruler
 set		colorcolumn=80
 
 "	tab settings
-"set		softtabstop=2
 set		tabstop=4
 set		shiftwidth=4
+set		softtabstop=4
 set		noexpandtab
 set		autoindent
 set		smartindent
@@ -82,31 +82,28 @@ function NormiBeta()
 	echo GetNormiBeta()
 endfunction
 
-" Create header 42
-function Headerfile()
-	let name=expand('%:p')
-	let lnum=len(name)
-	let finalWhite = 82 - lnum - 6 - 25
-	let finalW = ""
-
-	while finalWhite > 0
-		let finalW = finalW . " "
-		let finalWhite = finalWhite - 1
-	endwhile
-
-	:0r /home/samuel/.vim/config_perso/header_noremap.txt
-	exe "1," . 10 . 's/\/\*   <file>.*/\/\*   ' .name . finalW . ':+:      :+:    :+:   \*\//'
-	exe "1," . 10 . "g/<date> <hour>/s//" .strftime("%Y-%m-%d %H:%M:%S")
-	execute '%s/<user>/' . $USER_42 . '/g'
-	exe "1," . 10 . "g/Updated:.*/s/Updated:.*/Updated: " .strftime("%Y-%m-%d %H:%M:%S") ." by " . $USER_42 . "         ###   ########.fr       \*\\/ "
-	:$
-endfunction
-
 function NewTab()
 	:tabnew
 	:Explore
 endfunction
 
+function FtPython()
+	"	Comment line
+	map cl 0i#<Esc>
+	map ucl 01x
+endfunction
+
+function FtC()
+	"	Comment line
+	map cl 0i//<Esc>
+	map ucl 02x
+endfunction
+
+function FtAsm()
+	"	Comment line
+	map cl 0i;<Esc>
+	map ucl 01x
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""" initialize theme """""""""""""""""""""""""""""""
@@ -171,9 +168,6 @@ noremap <S-F5> :set list!<CR>
 inoremap <S-F5> <C-o>:set list!<CR>
 cnoremap <S-F5> <C-c>:set list!<CR>
 
-" call function to create 42 header
-"nnoremap <C-F5> :call Headerfile()<CR>
-
 nnoremap <F6> :set relativenumber<CR>
 nnoremap <S-F6> :set norelativenumber<CR>
 
@@ -192,15 +186,22 @@ nnoremap <F10> gt<CR>
 nnoremap <S-F10> gT<CR>
 
 "	Comment line
-map cl 0i//<Esc>
-map ucl 02x
+"map cl 0i//<Esc>
+"map ucl 02x
 
 
-" switch
-"nnoremap <C-J> <C-W><C-J>
-"nnoremap <C-K> <C-W><C-K>
-"nnoremap <C-L> <C-W><C-L>
-"nnoremap <C-H> <C-W><C-H>
+let hash = ['python', 'bash', 'sh']
+let dblcomment = ['c', 'cpp']
+let semicolon = ['asm', 's']
+let quote = ['vim']
 
-" Ctrl-m for make
-" nnoremap <C-M> :make<CR>
+if index(dblcomment, &filetype) != -1
+	:call FtC()
+elseif index(hash, &filetype) != -1
+	:call FtPython()
+elseif index(semicolon, &filetype) != -1
+	:call FtAsm()
+endif
+
+" edit indent for yaml file
+autocmd FileType yaml setlocal ai ts=2 sw=2 et
