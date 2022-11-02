@@ -47,7 +47,8 @@ filetype detect
 
 function InitializeC()
 	let		current_folder = getcwd()
-	silent exec "!ctags -R " . current_folder
+	silent exec "!ctags --recurse=yes --exclude=.git --exclude=.svn " . current_folder
+	"silent exec \"!ctags -R \" . current_folder
 
 	let g:syntastic_c_include_dirs = ['libft/includes', 'includes']
 	let g:syntastic_c_compiler_options = "-Wall -Wextra -Werror"
@@ -105,6 +106,64 @@ function FtAsm()
 	map ucl 01x
 endfunction
 
+function FtGolang()
+	" build
+	noremap <F7> :GoBuild<CR>
+	" doc shift-f7
+	noremap <F19> :GoDoc<CR>
+	" run
+	noremap <F8> :GoRun<CR>
+	" shift-F8
+	noremap <F20> :GoTest<CR>
+	" shift f1
+	noremap <F13> :GoDef<CR>
+	" ctrl f1
+	noremap <F25> :GoImport<CR>
+	" alt f1
+	noremap <F49> :GoLint<CR>
+	" ctrl-F8
+	noremap <F32> :TagbarToggle<CR>
+	"noremap <F32> :TagbarToggle<CR>
+	let g:tagbar_autoclose = 1
+	"let g:tagbar_autofocus = 1
+	let g:tagbar_show_data_type = 1
+	"let g:tagbar_show_tag_linenumbers = 1
+	"let g:tagbar_autopreview = 1
+	let g:tagbar_wrap = 2
+	"let g:tagbar_compact = 1
+
+	let g:tagbar_type_go = {
+		\ 'ctagstype' : 'go',
+		\ 'kinds'     : [
+			\ 'p:package',
+			\ 'i:imports:1',
+			\ 'c:constants',
+			\ 'v:variables',
+			\ 't:types',
+			\ 'n:interfaces',
+			\ 'w:fields',
+			\ 'e:embedded',
+			\ 'm:methods',
+			\ 'r:constructor',
+			\ 'f:functions'
+		\ ],
+		\ 'sro' : '.',
+		\ 'kind2scope' : {
+			\ 't' : 'ctype',
+			\ 'n' : 'ntype'
+		\ },
+		\ 'scope2kind' : {
+			\ 'ctype' : 't',
+			\ 'ntype' : 'n'
+		\ },
+		\ 'ctagsbin'  : 'gotags',
+		\ 'ctagsargs' : '-sort -silent'
+	\ }
+
+	autocmd VimEnter * nested :TagbarToggle
+	:autocmd BufWritePost * :TagbarForceUpdate
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""" initialize theme """""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -123,6 +182,8 @@ set termguicolors
 set background=dark
 let g:gruvbox_termcolors=16
 let g:gruvbox_contrast_dark='medium'
+"let g:gruvbox_transparent_bg = 1
+"autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
 
 "	format date/time
 let	g:airline#extensions#clock#format = '%d/%m %H:%M'
@@ -162,14 +223,15 @@ nnoremap <F5> :resize -1<CR>
 noremap <F12> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"	see invisible characters
+"	see invisible characters Shift-F5
 set		listchars=eol:$,tab:→\ ,trail:.,space:·,extends:>,precedes:<,nbsp:_
-noremap <S-F5> :set list!<CR>
-inoremap <S-F5> <C-o>:set list!<CR>
-cnoremap <S-F5> <C-c>:set list!<CR>
+noremap <F17> :set list!<CR>
+inoremap <F17> <C-o>:set list!<CR>
+cnoremap <F17> <C-c>:set list!<CR>
 
 nnoremap <F6> :set relativenumber<CR>
-nnoremap <S-F6> :set norelativenumber<CR>
+" shift F6
+nnoremap <F18> :set norelativenumber<CR>
 
 " call norminette
 noremap <F7> :call Normi()<CR>
@@ -181,9 +243,11 @@ noremap <S-F8> :%!xxd<CR>
 
 
 nnoremap <F9> :call NewTab()<CR>
-nnoremap <S-F9> :tabnew<CR>
+" shift F9
+nnoremap <F21> :tabnew<CR>
 nnoremap <F10> gt<CR>
-nnoremap <S-F10> gT<CR>
+" shift f10
+nnoremap <F22> gT<CR>
 
 "	Comment line
 "map cl 0i//<Esc>
@@ -194,6 +258,7 @@ let hash = ['python', 'bash', 'sh']
 let dblcomment = ['c', 'cpp']
 let semicolon = ['asm', 's']
 let quote = ['vim']
+let golang = ['go']
 
 if index(dblcomment, &filetype) != -1
 	:call FtC()
@@ -201,6 +266,8 @@ elseif index(hash, &filetype) != -1
 	:call FtPython()
 elseif index(semicolon, &filetype) != -1
 	:call FtAsm()
+elseif index(golang, &filetype) != -1
+	:call FtGolang()
 endif
 
 " edit indent for yaml file
